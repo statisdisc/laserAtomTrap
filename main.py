@@ -17,15 +17,15 @@ from physics_functions import *
 ''''''''''''''''''''''''''''''''''''
 beam_radius = 1.2           #cm 
 gaussian = True             #If you want a Gaussian input beam, select True. If not, type False.
-rad_press = False           #True: Radiation Pressure, False: Acceleration Profile.
+rad_press = False           #True: Plot Radiation Pressure, False: Plot Acceleration Profile.
 imperfection = False        #Add a faint 0th order diffraction beam.
 resolution = 300            #Resolution of image produced, x by x.
 x_axis = 0                  #Plot what on x-axis of image? 0 for x, 1 for y, 2 for z.
 y_axis = 2                  #Plot what on y-axis of image? 0 for x, 1 for y, 2 for z.
                             #EG: x_axis = 0, y_axis = 2 plots the x-z plane.
-x_range = [-0.55,0.55]      #Range of x-values.
-y_range = [0.0,0.0]         #Range of y-values.
-z_range = [0.0,1.1]         #Range of z-values.
+x_range = [-1.55,1.55]      #Range of x-values (also range seen on plot).
+y_range = [0.0,0.0]         #Range of y-values (also range seen on plot).
+z_range = [0.0,3.1]         #Range of z-values (also range seen on plot).
 scaling = 5.                #Scale factor for the acceleration vectors.
 
 
