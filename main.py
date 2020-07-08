@@ -15,6 +15,7 @@ from physics_functions import *
 ''''''''''''''''''''''''''''''''''''
 '''         USER OPTIONS         '''
 ''''''''''''''''''''''''''''''''''''
+grating_type = "triangle"   #Choose triangle or square. Default is triangle.
 beam_radius = 1.2           #cm 
 gaussian = True             #If you want a Gaussian input beam, select True. If not, type False.
 rad_press = False           #True: Plot Radiation Pressure, False: Plot Acceleration Profile.
@@ -36,40 +37,47 @@ gratings = []
 ''''''''''''''''''''''''''''''''''''
 '''        Square Grating.       '''
 ''''''''''''''''''''''''''''''''''''
-# name = "Square Grating"
-# angle = np.pi/2.0 - 41 * np.pi / 180.0
-# angle2 = 41 * np.pi / 180.0
-# reflectivity = 1/(4.*np.cos(angle2))
-# ''' x > -1, x < 1, y > -1, y < 1 '''
-# space = [[1,0,1.],[-1,0,1.],[0,1,1.],[0,-1,1.]]
-# gratings.append(grating(space, np.array([1,0]), angle, reflectivity))
-# gratings.append(grating(space, np.array([0,1]), angle, reflectivity))
+if grating_type == "square":
+    name = "Square Grating"
+    angle = np.pi/2.0 - 41 * np.pi / 180.0
+    angle2 = 41 * np.pi / 180.0
+    reflectivity = 1/(4.*np.cos(angle2))
+    
+    ''' x > -1, x < 1, y > -1, y < 1 '''
+    space = [[1,0,1.],[-1,0,1.],[0,1,1.],[0,-1,1.]]
+    
+    gratings.append( grating(space, np.array([1,0]), angle, reflectivity) )
+    gratings.append( grating(space, np.array([0,1]), angle, reflectivity) )
+
 
 ''''''''''''''''''''''''''''''''''''
 '''        Triangular Grating.   '''
 ''''''''''''''''''''''''''''''''''''
-name = "Triangular Grating"
-angle = np.pi/2.0 - 41 * np.pi / 180.0
-angle2 = 41* np.pi / 180.0
-reflectivity = 1/(3.*np.cos(angle2))
-tan_60 = np.tan(60 * np.pi / 180.0)
-sin_60 = np.sin(60 * np.pi / 180.0)
-cos_60 = np.cos(60 * np.pi / 180.0)
-tan_30 = np.tan(30 * np.pi / 180.0)
-sin_30 = np.sin(30 * np.pi / 180.0)
-cos_30 = np.cos(30 * np.pi / 180.0)
-'''Grating 1 dimensions.'''
-''' x > -1.2, tan(60)*x + y < 0, -tan(60)*x + y > 0 '''
-space1 = [[1,0,1.2],[-tan_60,-1,0.],[-tan_60,1,0.]]
-'''Grating 3 dimensions.'''
-''' tan(60)*x + y > 0, x < 1.2, y > 0, y < 1.2 '''
-space2 = [[tan_60,1,0.],[-1,0,1.2],[0,1,0.],[0,-1,1.2]]
-'''Grating 2 dimensions.'''
-''' tan(60)*x - y > 0, x < 1.2, y < 0, y > -1.2 '''
-space3 = [[tan_60,-1,0.],[-1,0,1.2],[0,-1,0.],[0,1,1.2]]
-gratings.append(grating(space1, np.array([0,1]), angle, reflectivity))
-gratings.append(grating(space2, np.array([-cos_30,sin_30]), angle, reflectivity))
-gratings.append(grating(space3, np.array([cos_30,sin_30]), angle, reflectivity))
+if grating_type == "triangle" or grating_type != "square":
+    name = "Triangular Grating"
+    angle = np.pi/2.0 - 41 * np.pi / 180.0
+    angle2 = 41* np.pi / 180.0
+    reflectivity = 1/(3.*np.cos(angle2))
+    tan_60 = np.tan(60 * np.pi / 180.0)
+    sin_60 = np.sin(60 * np.pi / 180.0)
+    cos_60 = np.cos(60 * np.pi / 180.0)
+    tan_30 = np.tan(30 * np.pi / 180.0)
+    sin_30 = np.sin(30 * np.pi / 180.0)
+    cos_30 = np.cos(30 * np.pi / 180.0)
+    
+    '''Grating 1 dimensions.'''
+    ''' x > -1.2, tan(60)*x + y < 0, -tan(60)*x + y > 0 '''
+    space1 = [[1,0,1.2],[-tan_60,-1,0.],[-tan_60,1,0.]]
+    '''Grating 3 dimensions.'''
+    ''' tan(60)*x + y > 0, x < 1.2, y > 0, y < 1.2 '''
+    space2 = [[tan_60,1,0.],[-1,0,1.2],[0,1,0.],[0,-1,1.2]]
+    '''Grating 2 dimensions.'''
+    ''' tan(60)*x - y > 0, x < 1.2, y < 0, y > -1.2 '''
+    space3 = [[tan_60,-1,0.],[-1,0,1.2],[0,-1,0.],[0,1,1.2]]
+    
+    gratings.append( grating(space1, np.array([0,1]), angle, reflectivity) )
+    gratings.append( grating(space2, np.array([-cos_30,sin_30]), angle, reflectivity) )
+    gratings.append( grating(space3, np.array([cos_30,sin_30]), angle, reflectivity) )
 
 #Acceleration magnitude and x & y component arrays.
 acc = np.zeros((resolution,resolution),dtype=float)
